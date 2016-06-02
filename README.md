@@ -6,7 +6,7 @@
 ## Roadmap
 | Milestone | Release Date |
 |---|---|
-| Open Source | ~ 2016/05 |
+| Open Source<br/>(Server framework + Client) | ~ 2016/06 |
 
 ## Documetation
 - Github의 [Wiki 문서](https://github.com/nhnent/haste.framework/wiki)를 참조하면 된다.
