@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.nhnent</groupId>
+    <artifactId>haste-parent</artifactId>
+    <version>0.0.7</version>
+    <packaging>pom</packaging>
+
+    <name>Haste</name>
+    <url>http://www.nhnent.com/</url>
+
+    <organization>
+        <name>NHN Entertainment Corp.</name>
+        <url>http://www.nhnent.com/</url>
+    </organization>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <test.jvm.argLine>
+            -server
+            -dsa -da -ea:com.nhnent...
+            -XX:+AggressiveOpts
+            -XX:+TieredCompilation
+            -XX:+UseBiasedLocking
+            -XX:+UseFastAccessorMethods
+            -XX:+UseStringCache
+            -XX:+OptimizeStringConcat
+            -XX:+HeapDumpOnOutOfMemoryError
+        </test.jvm.argLine>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>1.7.13</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.jetlang</groupId>
+                <artifactId>jetlang</artifactId>
+                <version>0.2.12</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.puppycrawl.tools</groupId>
+                <artifactId>checkstyle</artifactId>
+                <version>6.16.1</version>
+            </dependency>
+
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>4.12</version>
+                <scope>test</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <modules>
+        <module>all</module>
+        <module>example</module>
+        <module>bootstrap</module>
+        <module>framework</module>
+        <module>protocol</module>
+        <module>transport</module>
+        <module>transport-tcp</module>
+        <module>transport-udp</module>
+        <module>objectpool</module>
+        <module>common</module>
+        <module>security</module>
+    </modules>
+
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <version>1.3</version>
+                <executions>
+                    <execution>
+                        <id>enforce-tools</id>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <requireJavaVersion>
+                                    <!-- Enforce java 1.8 as minimum for compiling -->
+                                    <version>[1.7.0,)</version>
+                                </requireJavaVersion>
+                                <requireMavenVersion>
+                                    <version>[3.3.0, 3.4)</version>
+                                </requireMavenVersion>
+                            </rules>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.5.1</version>
+                <configuration>
+                    <compilerVersion>1.7</compilerVersion>
+                    <fork>true</fork>
+                    <source>1.7</source>
+                    <target>1.7</target>
+                    <debug>true</debug>
+                    <optimize>true</optimize>
+                    <showDeprecation>true</showDeprecation>
+                    <showWarnings>true</showWarnings>
+                    <compilerArgument>-Xlint:-options</compilerArgument>
+                    <meminitial>256m</meminitial>
+                    <maxmem>1024m</maxmem>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>2.17</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.puppycrawl.tools</groupId>
+                        <artifactId>checkstyle</artifactId>
+                        <version>6.16.1</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.19.1</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.apache.maven.surefire</groupId>
+                        <artifactId>surefire-junit4</artifactId>
+                        <version>2.18.1</version>
+                    </dependency>
+                </dependencies>
+                <configuration>
+                    <includes>
+                        <include>**/*Test*.java</include>
+                        <include>**/*Benchmark*.java</include>
+                    </includes>
+                    <excludes>
+                        <exclude>**/Abstract*</exclude>
+                        <exclude>**/TestUtil*</exclude>
+                    </excludes>
+                    <runOrder>random</runOrder>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>default-test</id>
+                        <phase>none</phase>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>1.8</version>
+                <executions>
+                    <execution>
+                        <id>parse-version</id>
+                        <goals>
+                            <goal>parse-version</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>2.2.1</version>
+                <executions>
+                    <!--
+                      ~ This workaround prevents Maven from executing the 'generate-sources' phase twice.
+                      ~ See http://jira.codehaus.org/browse/MSOURCES-13
+                      ~ and http://blog.peterlynch.ca/2010/05/maven-how-to-prevent-generate-sources.html
+                      -->
+                    <execution>
+                        <id>attach-sources</id>
+                        <phase>invalid</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>attach-sources-no-fork</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.9.1</version>
+                <configuration>
+                    <detectOfflineLinks>false</detectOfflineLinks>
+                    <breakiterator>true</breakiterator>
+                    <version>false</version>
+                    <author>false</author>
+                    <keywords>true</keywords>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>2.7</version>
+                <configuration>
+                    <retryFailedDeploymentCount>10</retryFailedDeploymentCount>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
