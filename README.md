@@ -1,3 +1,5 @@
+![Logo](https://cloud.githubusercontent.com/assets/4951898/19913850/7bf34c04-a0e9-11e6-877d-8292a93b9a2a.png)
+
 # TOAST Haste framework
 `TOAST Haste framework` is the asynchronous game server framework for easy development.
 
