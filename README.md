@@ -82,7 +82,7 @@ A bug report should contain the following
 - dl_haste@nhnent.com
 
 ## Contributor
-- Oh bum, Kwon (Founder)
+- Ethan Kwon (Founder)
 - Tae gyeong, Kim
 
 ## License
