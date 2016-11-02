@@ -1,3 +1,5 @@
+![Logo](https://cloud.githubusercontent.com/assets/4951898/19913934/252fd2d8-a0ea-11e6-92e2-c4225e97a020.png)
+
 # TOAST Haste framework
 `TOAST Haste framework` 는 게임서버를 손쉽게 개발할 수 있도록 도와주는 비동기 게임 서버 프레임워크 입니다.
 
