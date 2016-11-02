@@ -47,7 +47,6 @@ public class EchoServer {
                     public void onReceive(int peerCount, double meanOfRoundTripTime, double meanOfRoundTripTimeDeviation) {
                         logger.info("Peer : {}, RTT : {}, RTT-D : {}", peerCount, meanOfRoundTripTime, meanOfRoundTripTimeDeviation);
                     }
-                })
-                .bind(PORT).start();
+                }).bind(PORT).start();
     }
 }
