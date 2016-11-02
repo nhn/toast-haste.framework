@@ -99,6 +99,7 @@
         <plugins>
             <plugin>
                 <artifactId>maven-clean-plugin</artifactId>
+                <version>3.0.0</version>
                 <executions>
                     <execution>
                         <id>clean-first</id>
@@ -113,15 +114,6 @@
             <plugin>
                 <artifactId>maven-dependency-plugin</artifactId>
                 <executions>
-                    <!-- Populate the properties whose key is groupId:artifactId:type
-                                             and whose value is the path to the artifact -->
-                    <execution>
-                        <id>locate-dependencies</id>
-                        <phase>initialize</phase>
-                        <goals>
-                            <goal>properties</goal>
-                        </goals>
-                    </execution>
 
                     <!-- Unpack all source files -->
                     <execution>
