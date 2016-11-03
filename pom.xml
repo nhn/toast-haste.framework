@@ -6,7 +6,7 @@
 
     <groupId>com.nhnent</groupId>
     <artifactId>haste-parent</artifactId>
-    <version>0.0.7</version>
+    <version>1.0.0</version>
     <packaging>pom</packaging>
 
     <name>Haste</name>
