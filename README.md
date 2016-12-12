@@ -1,13 +1,13 @@
-![Logo](https://cloud.githubusercontent.com/assets/4951898/19913934/252fd2d8-a0ea-11e6-92e2-c4225e97a020.png)
+![Logo](https://cloud.githubusercontent.com/assets/4951898/21089491/ccdd9672-c07b-11e6-81c2-466374640a25.png)
+===============
 
-# TOAST Haste framework
+## TOAST Haste framework
 `TOAST Haste framework` is the asynchronous game server framework for easy development.
 
 `Haste is a spell that boosts the player movement speed and attack speed.`
 
 ![Englsh](https://img.shields.io/badge/Language-English-lightgrey.svg) 
 [![Korean](https://img.shields.io/badge/Language-Korean-blue.svg)](README_KR.md)
-
 
 ## Features
 ### Various QoS, and Multiplexing
