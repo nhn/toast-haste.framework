@@ -53,6 +53,7 @@ public class AesCryptoProvider implements CryptoProvider {
         }
     }
 
+    @Override
     public byte[] decrypt(byte[] data) {
         return decrypt(data, 0, data.length);
     }
