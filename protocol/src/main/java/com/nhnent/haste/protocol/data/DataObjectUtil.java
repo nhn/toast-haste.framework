@@ -21,7 +21,7 @@ import java.nio.charset.Charset;
 import java.security.InvalidParameterException;
 
 class DataObjectUtil {
-    static final Charset UTF8 = Charset.forName("UTF-8");
+    private static final Charset UTF8 = Charset.forName("UTF-8");
 
     static DataType getType(Object object) {
         if (object instanceof Byte) {
@@ -40,19 +40,19 @@ class DataObjectUtil {
             return DataType.DOUBLE;
         } else if (object instanceof String) {
             return DataType.STRING;
-        } else if (object instanceof Byte[]) {
+        } else if (object instanceof Byte[] || object instanceof byte[]) {
             return DataType.BYTE_ARRAY;
-        } else if (object instanceof Boolean[]) {
+        } else if (object instanceof Boolean[] || object instanceof boolean[]) {
             return DataType.BOOL_ARRAY;
-        } else if (object instanceof Short[]) {
+        } else if (object instanceof Short[] || object instanceof short[]) {
             return DataType.INT16_ARRAY;
-        } else if (object instanceof Integer[]) {
+        } else if (object instanceof Integer[] || object instanceof int[]) {
             return DataType.INT32_ARRAY;
-        } else if (object instanceof Long[]) {
+        } else if (object instanceof Long[] || object instanceof long[]) {
             return DataType.INT64_ARRAY;
-        } else if (object instanceof Float[]) {
+        } else if (object instanceof Float[] || object instanceof float[]) {
             return DataType.FLOAT_ARRAY;
-        } else if (object instanceof Double[]) {
+        } else if (object instanceof Double[] || object instanceof double[]) {
             return DataType.DOUBLE_ARRAY;
         } else if (object instanceof String[]) {
             return DataType.STRING_ARRAY;
@@ -208,49 +208,49 @@ class DataObjectUtil {
         byteWrapper.writeInt(length);
         switch (dataType) {
             case BYTE_ARRAY: {
-                byte[] values = (byte[]) value;
+                byte[] values = ArrayUtils.toByteArray(value);
                 for (int i = 0; i < length; i++) {
                     byteWrapper.writeByte(values[i]);
                 }
                 break;
             }
             case BOOL_ARRAY: {
-                boolean[] values = (boolean[]) value;
+                boolean[] values = ArrayUtils.toBooleanArray(value);
                 for (int i = 0; i < length; i++) {
                     byteWrapper.writeBoolean(values[i]);
                 }
                 break;
             }
             case INT16_ARRAY: {
-                short[] values = (short[]) value;
+                short[] values = ArrayUtils.toShortArray(value);
                 for (int i = 0; i < length; i++) {
                     byteWrapper.writeShort(values[i]);
                 }
                 break;
             }
             case INT32_ARRAY: {
-                int[] values = (int[]) value;
+                int[] values = ArrayUtils.toIntArray(value);
                 for (int i = 0; i < length; i++) {
                     byteWrapper.writeInt(values[i]);
                 }
                 break;
             }
             case INT64_ARRAY: {
-                long[] values = (long[]) value;
+                long[] values = ArrayUtils.toLongArray(value);
                 for (int i = 0; i < length; i++) {
                     byteWrapper.writeLong(values[i]);
                 }
                 break;
             }
             case FLOAT_ARRAY: {
-                float[] values = (float[]) value;
+                float[] values = ArrayUtils.toFloatArray(value);
                 for (int i = 0; i < length; i++) {
                     byteWrapper.writeFloat(values[i]);
                 }
                 break;
             }
             case DOUBLE_ARRAY: {
-                double[] values = (double[]) value;
+                double[] values = ArrayUtils.toDoubleArray(value);
                 for (int i = 0; i < length; i++) {
                     byteWrapper.writeDouble(values[i]);
                 }
