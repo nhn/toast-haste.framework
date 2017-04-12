@@ -50,15 +50,15 @@ public class BinaryProtocolTest {
             buffer.putShort(code); // Message code
             buffer.putInt(2); // Parameter count
 
-            // Put parameter : uuid
-            buffer.put((byte) 0x39); // Parameter code
-            buffer.put(DataType.INT64.getByte()); // Parameter type
-            buffer.putLong(this.uuid); // Parameter value
-
             // Put parameter : id
             buffer.put((byte) 0x29); // Parameter code
             buffer.put(DataType.BYTE.getByte()); // Parameter type
             buffer.put(this.id); // Parameter code
+
+            // Put parameter : uuid
+            buffer.put((byte) 0x39); // Parameter code
+            buffer.put(DataType.INT64.getByte()); // Parameter type
+            buffer.putLong(this.uuid); // Parameter value
 
             return buffer;
         }
