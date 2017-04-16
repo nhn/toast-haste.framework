@@ -41,26 +41,20 @@
 ## Roadmap
 - NHN Entertainment 에서는 Toast Cloud Real-time Multiplayer(이하 RTM) 를 TOAST Haste를 이용해서 서비스하고 있습니다.
 - 그래서 아래 로드맵에 따라서 성능을 최적화하고 사용성을 향상시키는 노력을 꾸준히 할 예정입니다. 
-
-### Milestones
-
-|Milestone|Release Date|
-|---------|------------|
-|1.0.0    |   Sept 2016|
-|1.0.1    | 2017 |
-|1.1.0    | 2017 |
-
-### Planned 1.0.1 features
-- 성능 테스트에 대한 고민.
-
-### Planned 1.1.0 features
-- WebGL을 위한 WebSocket 지원.
-- 성능 및 사용성 향상, 개발자 문서 보완.
-- Gradle 지원.
+- [Roadmap](https://github.com/nhnent/toast-haste.framework/wiki/Roadmap)
 
 ## Contributing
 - Source Code Contributions:
     - [Contribution Guidelines for TOAST Haste](./CONTRIBUTING.md) 문서를 참조하면 됩니다.
+
+### Submitting Pull Requests
+Before changes can be accepted a Contributor Licensing Agreement for Individual | Corporate must be completed.
+
+- If you are an individual writing original source code and you're sure you own the intellectual property, then you'll need to sign an [Individual CLA(Korean)](https://docs.google.com/forms/d/e/1FAIpQLSekugNvCBPl7N2M5ONqHG4Lw1fqjfHzw1Lq-Zzm509LlKH7uA/viewform)
+- If you work for a company that wants to allow you to contribute your work, then you'll need to sign a [Corporate CLA(Korean)](https://docs.google.com/forms/d/e/1FAIpQLScEnxqarG8t8DVbsXaXQTSrXpxvhKyrlJi-EjUOiDrlxcC0Zg/viewform)
+- If you are an representative writing original source code, then you'll need to sign a [Representative CLA(Korean)](https://docs.google.com/forms/d/14S9lgd_DxsUhKNyMtatefPusuUSOiIdBYCAWrZygogU/viewform?edit_requested=true)
+
+Have a question for us? please send e-mail at [oss@nhnent.com](oss@nhnent.com).
 
 ## Bug Reporting
 버그를 발견했을때, 리포트하는건 매우 중요합니다. 다른 사람들에게도 도움이 될 수 있도록 발견된 버그를 알려주세요. 
