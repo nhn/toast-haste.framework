@@ -93,7 +93,8 @@ public final class UDPNetworkPeer extends AbstractNetworkPeer implements Transpo
     @Override
     public boolean enqueueOutgoingCommand(byte[] payload, int payloadLength, byte channelIndex, boolean encrypt, QoS qos) {
         if (getConnectionState().isNotEqual(ConnectionState.CONNECTED)) {
-            logger.debug("PeerID[{}] is not connected [{}]", peerID, getConnectionState());
+            if (logger.isDebugEnabled())
+                logger.debug("PeerID[{}] is not connected [{}]", peerID, getConnectionState());
             return false;
         }
 
@@ -106,7 +107,8 @@ public final class UDPNetworkPeer extends AbstractNetworkPeer implements Transpo
         Channel channel = channels.get(channelIndex);
 
         if (channel == null) {
-            logger.debug("[{}] channel is not found", channelIndex);
+            if (logger.isDebugEnabled())
+                logger.debug("[{}] channel is not found", channelIndex);
             return false;
         }
 
@@ -199,7 +201,8 @@ public final class UDPNetworkPeer extends AbstractNetworkPeer implements Transpo
         //Check valid connection state.
         if (currentTime > timestampOfLastReceive + DISCONNECT_TIMEOUT) {
             long interval = currentTime - timestampOfLastReceive;
-            logger.debug(String.format("PeerID[%d] Disconnect because valid command is not coming from client during [%d]", peerID, interval));
+            if (logger.isDebugEnabled())
+                logger.debug("PeerID[{}] Disconnect because valid command is not coming from client during [{}]", peerID, interval);
             disconnect(DisconnectReason.TIMEOUT_DISCONNECT, "Cannot receive any command during " + DISCONNECT_TIMEOUT);
         }
 
@@ -285,7 +288,8 @@ public final class UDPNetworkPeer extends AbstractNetworkPeer implements Transpo
             int sentBytes = ch.send(writeByteBuffer, socketAddress);
 
             if (udpBufferIndex != sentBytes) {
-                logger.debug("sent bytes: " + sentBytes);
+                if (logger.isDebugEnabled())
+                    logger.debug("sent bytes: {}", sentBytes);
             }
 
         } catch (IOException e) {
@@ -307,7 +311,6 @@ public final class UDPNetworkPeer extends AbstractNetworkPeer implements Transpo
             }
 
             outgoingCommand.serialize();
-            outgoingCommand.getSerializedArrayLength();
 
             udpBufferIndex = ByteWrite.set(outgoingCommand.serialize(), 0, length, writeBuf, udpBufferIndex);
             udpCommandCount++;
@@ -371,9 +374,8 @@ public final class UDPNetworkPeer extends AbstractNetworkPeer implements Transpo
 
         int queueSize = outgoingAckList.size();
         if (queueSize > 0 && (queueSize % WARNING_SIZE) == 0) {
-            logger.debug(String.format("[%d] outgoingAckList Count [%d]",
-                    peerID,
-                    queueSize));
+            if (logger.isDebugEnabled())
+                logger.debug("[{}] outgoingAckList Count [{}]", peerID, queueSize);
         }
 
         udpCommandCount += ackCommandCount;
@@ -454,7 +456,8 @@ public final class UDPNetworkPeer extends AbstractNetworkPeer implements Transpo
                 packetLossByCRC++;
 
                 if ((packetLossByCRC > 0) && (packetLossByCRC % 100) == 0) {
-                    logger.debug(String.format("[%d] CRC error count[%d] address[%s]", peerID, socketAddress.toString()));
+                    if (logger.isDebugEnabled())
+                        logger.debug("[{}] CRC error count[{}] address[{}]", peerID, packetLossByCRC, socketAddress.toString());
                 }
 
                 return;
@@ -652,7 +655,7 @@ public final class UDPNetworkPeer extends AbstractNetworkPeer implements Transpo
             case DISCONNECT: {
                 getConnectionState().transitDisconnected(this);
                 if (logger.isDebugEnabled()) {
-                    logger.debug(String.format("[%d] Recv Disconnect command from Client", peerID));
+                    logger.debug("[{}] Recv Disconnect command from Client", peerID);
                 }
                 processDisconnectCommand(command);
                 command.release();
@@ -724,10 +727,8 @@ public final class UDPNetworkPeer extends AbstractNetworkPeer implements Transpo
 
             if (queueSize > 0 && (queueSize % WARNING_SIZE) == 0) {
                 if (logger.isDebugEnabled())
-                    logger.debug(String.format("[%d] ch[%d] incomingReliableCommand Count [%d]",
-                            peerID,
-                            channel.getChannelNumber(),
-                            queueSize));
+                    logger.debug("[{}] ch[{}] incomingReliableCommand Count [{}]",
+                            peerID, channel.getChannelNumber(), queueSize);
             }
         } else { //CF_UNRELIABLE
             if (command.getReliableSeqNum() < channel.getIncomingReliableSeqNum() ||
@@ -742,10 +743,8 @@ public final class UDPNetworkPeer extends AbstractNetworkPeer implements Transpo
 
             if (queueSize > 0 && (queueSize % WARNING_SIZE) == 0) {
                 if (logger.isDebugEnabled())
-                    logger.debug(String.format("[%d] ch[%d] incomingUnreliableCommand Count [%d]",
-                            peerID,
-                            channel.getChannelNumber(),
-                            queueSize));
+                    logger.debug("[{}] ch[{}] incomingUnreliableCommand Count [{}]",
+                            peerID, channel.getChannelNumber(), queueSize);
             }
         }
 
@@ -763,13 +762,13 @@ public final class UDPNetworkPeer extends AbstractNetworkPeer implements Transpo
             long rtt = command.getRoundTripTime();
 
             if (logger.isTraceEnabled()) {
-                logger.trace(String.format("[%d] Received Ack ch[%d] seq[%d] rtt[%d] rev[%d] sent[%d]",
+                logger.trace("[{}] Received Ack ch[{}] seq[{}] rtt[{}] rev[{}] sent[{}]",
                         peerID,
                         command.getChannelIndex(),
                         command.getAckReceivedReliableSeq(),
                         command.getRoundTripTime(),
                         command.getReceiveTime(),
-                        command.getAckReceivedSentTime()));
+                        command.getAckReceivedSentTime());
             }
 
             UpdateRoundTripTimeAndVariance(rtt);

@@ -129,7 +129,8 @@ public abstract class ClientPeer implements ApplicationPeer {
         if (isEncrypted) {
             byte[] decryptedPayload = this.cryptoProvider.decrypt(payloadBytes, 0, payloadLength);
             if (decryptedPayload == null) {
-                logger.warn("Failed Encrypted Data : length[{}]", payloadLength);
+                if (logger.isWarnEnabled())
+                    logger.warn("Failed Encrypted Data : length[{}]", payloadLength);
                 return;
             }
             payloadBytes = decryptedPayload;
