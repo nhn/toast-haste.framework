@@ -90,11 +90,11 @@
                         <configuration>
                             <rules>
                                 <requireJavaVersion>
-                                    <!-- Enforce java 1.8 as minimum for compiling -->
+                                    <!-- Enforce java 1.7 as minimum for compiling -->
                                     <version>[1.7.0,)</version>
                                 </requireJavaVersion>
                                 <requireMavenVersion>
-                                    <version>[3.3.0, 3.4)</version>
+                                    <version>[3.0.5, 3.4)</version>
                                 </requireMavenVersion>
                             </rules>
                         </configuration>
