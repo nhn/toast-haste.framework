@@ -182,8 +182,9 @@ public final class Channel {
             long rto = command.getRetransmissionTimeout();
 
             if (command.getSentCount() > OutgoingCommand.MAX_RESEND_COUNT) {
-                logger.debug("Failed to resend, relSeq[{}] currentTime[{}] rto[{}] sentTime[{}] sentCount[{}]",
-                        command.getReliableSeqNum(), currentTime, rto, command.getSentTime(), command.getSentCount());
+                if (logger.isDebugEnabled())
+                    logger.debug("Failed to resend, relSeq[{}] currentTime[{}] rto[{}] sentTime[{}] sentCount[{}]",
+                            command.getReliableSeqNum(), currentTime, rto, command.getSentTime(), command.getSentCount());
                 return false;
             }
 
