@@ -831,7 +831,10 @@ public final class UDPNetworkPeer extends AbstractNetworkPeer implements Transpo
     @Override
     public void dispose() {
         if (getConnectionState().isEqual(ConnectionState.DISCONNECTING)) {
+            logger.error("Invalid state, when it is expected disconnected status but it is disconnecting status");
+
             getConnectionState().transitDisconnected(this);
+            onDisconnected(DisconnectReason.UNKNOWN_ERROR, "this peer has invalid status");
         }
         doCleanUp();
     }

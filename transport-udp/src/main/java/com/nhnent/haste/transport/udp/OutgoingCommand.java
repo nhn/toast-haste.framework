@@ -20,6 +20,7 @@ import com.nhnent.haste.common.ByteWrite;
 
 public class OutgoingCommand extends UDPCommand<OutgoingCommand> {
     public final static int MAX_RESEND_COUNT = 3;
+    private final static int[] BACKOFF_MULTIPLE = new int[]{1, 1, 2, 4, 8, 16};
 
     private volatile int sentCount = 0;
     private long rto;
@@ -140,7 +141,13 @@ public class OutgoingCommand extends UDPCommand<OutgoingCommand> {
     }
 
     public void setRetransmissionTimeout(long sentTime, long rtt, long deviation) {
-        rto = sentTime + (rtt + (deviation << 2)) * sentCount;
+        rto = sentTime + (rtt + (deviation << 2)) * backoffMultiple(sentCount);
+    }
+
+    static int backoffMultiple(int sentCount) {
+        if (sentCount >= BACKOFF_MULTIPLE.length)
+            return BACKOFF_MULTIPLE[BACKOFF_MULTIPLE.length - 1];
+        return BACKOFF_MULTIPLE[sentCount];
     }
 
     public long getRetransmissionTimeout() {
