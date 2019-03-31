@@ -39,7 +39,7 @@
 - Reference to the [Wiki section of GitHub](https://github.com/nhnent/toast-haste.framework/wiki).
 
 ## Roadmap
-- At NHN Entertainment, we service Toast Cloud Real-time Multiplayer(a.k.a. RTM) developed by TOAST Haste.
+- At NHN, we service Toast Cloud Real-time Multiplayer(a.k.a. RTM) developed by TOAST Haste.
 - So, We will try to improve performance and convenience according to this roadmap.
 - [Roadmap](https://github.com/nhnent/toast-haste.framework/wiki/Roadmap)
 
@@ -84,7 +84,7 @@ A bug report should contain the following
 ## License
 TOAST Haste is licensed under the Apache 2.0 license, see [LICENSE](LICENSE.txt) for details.
 ```
-Copyright 2016 NHN Entertainment Corp.
+Copyright 2016 NHN Corp.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
